@@ -17,8 +17,9 @@ import           Net.PcapNg.Format      (Body (EnhancedPacketBody), PcapNGFile,
                                          blockBody, blocks)
 import           Net.PcapNg.Parse       (pPcapNGFormatFromFile)
 import           Net.TCPIP              (ArpFrame, DhcpPacket, DnsMessage,
-                                         Frame, IcmpPacket, IpPacket, TcpPacket,
-                                         UdpPacket)
+                                         DnsQuestion, Frame, IcmpPacket,
+                                         IpPacket, TcpPacket, UdpPacket,
+                                         dnsQuestion)
 import           Text.Parsec.ByteString (parseFromFile)
 
 type LinkPacket = [Word8]
@@ -81,3 +82,6 @@ instance Queryable DhcpPacket where
 
 instance Queryable DnsMessage where
   query = (query :: Query UdpPacket) >=> dns_packet >=> justDecode
+
+instance Queryable DnsQuestion where
+  query = (query :: Query DnsMessage) >=> Just . dnsQuestion

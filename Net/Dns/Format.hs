@@ -1,25 +1,29 @@
 -- https://tools.ietf.org/html/rfc1035#section-4
 module Net.Dns.Format where
 
-import           Data.Word (Word16)
+import           Data.Word (Word16, Word8)
+
+data QR = DnsQuery | DnsResponse deriving (Enum, Eq, Show)
 
 -- https://tools.ietf.org/html/rfc1035#section-4.1.1
 data DnsHeader = DnsHeader { _id      :: Word16
-                            , qr      :: Bool
-                            , opCode  :: Word16 -- TODO: Word18
-                            , _aa     :: Bool
-                            , _tc     :: Bool
-                            , _rd     :: Bool
-                            , _ra     :: Bool
-                            , _z      :: Word16 -- TODO: Word18
-                            , rcode   :: Word16 -- TODO: Word18
-                            , qnCount :: Word16
-                            , anCount :: Word16
-                            , nsCount :: Word16
-                            , arCount :: Word16
+                            , qr      :: QR
+                            , opCode  :: Word8
+                            , _aa     :: Bool -- Authoritative Answer
+                            , _tc     :: Bool -- TrunCation
+                            , _rd     :: Bool -- Recursion Desired
+                            , _ra     :: Bool -- Recursion Available
+                            --- 3 padding zeros ---
+                            , rcode   :: Word8
+                            , qdCount :: Word16 -- number of questions
+                            , anCount :: Word16 -- number of answers
+                            , nsCount :: Word16 -- number of name servers
+                            , arCount :: Word16 -- number of additional resources
                             }
 
-data DnsQuestionEntry = DnsQuestionEntry { qName  :: [String]
+newtype QName = QName [String]
+
+data DnsQuestionEntry = DnsQuestionEntry { qName  :: QName
                                          , qType  :: Word16
                                          , qClass :: Word16
                                          }
