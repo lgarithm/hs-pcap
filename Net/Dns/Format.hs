@@ -1,7 +1,7 @@
 -- https://tools.ietf.org/html/rfc1035#section-4
 module Net.Dns.Format where
 
-import           Data.Word (Word16, Word8)
+import           Data.Word (Word16, Word32, Word8)
 
 data QR = DnsQuery | DnsResponse deriving (Enum, Eq, Show)
 
@@ -21,23 +21,29 @@ data DnsHeader = DnsHeader { _id      :: Word16
                             , arCount :: Word16 -- number of additional resources
                             }
 
-newtype QName = QName [String]
+data Label = Label String | DnsPointer Word16
 
+newtype QName = QName [Label]
+
+-- https://tools.ietf.org/html/rfc1035#section-4.1.2
 data DnsQuestionEntry = DnsQuestionEntry { qName  :: QName
                                          , qType  :: Word16
+                                        --  https://tools.ietf.org/html/rfc1035#section-3.2.4
                                          , qClass :: Word16
                                          }
 
--- https://tools.ietf.org/html/rfc1035#section-4.1.2
-newtype DnsQuestion = DnsQuestion { qEntries :: [DnsQuestionEntry] }
-
-data DnsAnswer = DnsAnswer
-data DnsAuthority = DnsAuthority
-data DnsAdditional = DnsAdditional
+-- https://tools.ietf.org/html/rfc1035#section-4.1.3
+data ResourceRecord = ResourceRecord { name     :: QName
+                                     , _type    :: Word16
+                                     , _class   :: Word16
+                                     , dnsTtl   :: Word32
+                                     , rdLength :: Word16
+                                     , rdata    :: [Word8]
+                                     }
 
 data DnsMessage = DnsMessage { dnsHeader     :: DnsHeader
-                             , dnsQuestion   :: DnsQuestion
-                             , dnsAnswer     :: Maybe DnsAnswer
-                             , dnsAuthority  :: Maybe DnsAuthority
-                             , dnsAdditional :: Maybe DnsAdditional
+                             , dnsQuestion   :: [DnsQuestionEntry]
+                             , dnsAnswer     :: [ResourceRecord]
+                             , dnsAuthority  :: [ResourceRecord]
+                             , dnsAdditional :: [ResourceRecord]
                              }

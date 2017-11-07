@@ -16,3 +16,8 @@ justDecode bs =
   case decode bs of
     Right result -> Just (result :: a)
     _            -> Nothing
+
+mustDecode :: forall a . (FromBytes a) => JustDecode a
+mustDecode bs =
+  case decode bs of
+    Right result -> Just (result :: a)

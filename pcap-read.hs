@@ -7,12 +7,12 @@ import           Control.Monad      ((>=>))
 import           Data.List          (intercalate)
 import           Data.Maybe         (mapMaybe)
 import           Misc.Plain         (plain)
-import           Net.TCPIP          (ArpFrame, DhcpPacket, DnsMessage,
-                                     DnsQuestion, Frame, IcmpPacket, IpPacket,
-                                     QName, TcpPacket, UdpPacket, icmpHeader,
-                                     ipHeader, macHeader, qEntries, qName,
-                                     tcpData)
-import           Query              (Query, loadLinkPackets, query)
+import           Net.TCPIP          (ArpFrame, DhcpPacket, DnsMessage, Frame,
+                                     IcmpPacket, IpPacket, QName, TcpPacket,
+                                     UdpPacket, icmpHeader, ipHeader, macHeader,
+                                     qName, tcpData)
+import           Query              (DnsQuestion, Query, loadLinkPackets,
+                                     qEntries, query)
 import           System.Environment (getArgs)
 
 

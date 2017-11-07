@@ -17,7 +17,7 @@ import           Net.PcapNg.Format      (Body (EnhancedPacketBody), PcapNGFile,
                                          blockBody, blocks)
 import           Net.PcapNg.Parse       (pPcapNGFormatFromFile)
 import           Net.TCPIP              (ArpFrame, DhcpPacket, DnsMessage,
-                                         DnsQuestion, Frame, IcmpPacket,
+                                         DnsQuestionEntry, Frame, IcmpPacket,
                                          IpPacket, TcpPacket, UdpPacket,
                                          dnsQuestion)
 import           Text.Parsec.ByteString (parseFromFile)
@@ -83,5 +83,7 @@ instance Queryable DhcpPacket where
 instance Queryable DnsMessage where
   query = (query :: Query UdpPacket) >=> dns_packet >=> justDecode
 
+newtype DnsQuestion = DnsQuestion { qEntries :: [DnsQuestionEntry] }
+
 instance Queryable DnsQuestion where
-  query = (query :: Query DnsMessage) >=> Just . dnsQuestion
+  query = (query :: Query DnsMessage) >=> Just . DnsQuestion . dnsQuestion
