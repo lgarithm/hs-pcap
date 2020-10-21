@@ -1,3 +1,5 @@
+module Misc.ParseTest where
+
 import           Data.ByteString.Char8 as C8 (pack)
 import           Misc.Parse
 import           Misc.Sure

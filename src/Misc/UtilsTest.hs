@@ -1,3 +1,5 @@
+module Misc.UtilsTest where
+
 import           Misc.Test
 import           Misc.Utils
 

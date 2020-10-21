@@ -1,0 +1,135 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.33.0.
+--
+-- see: https://github.com/sol/hpack
+--
+-- hash: bb65defaafaccf34693d33c8fa8b0d887f4b5c92810dbbb7c89d0343f5c5dcc6
+
+name:           hs-pcap
+version:        0.1.0.0
+description:    Please see the README on GitHub at <https://github.com/lgarithm/hs-pcap#README.md>
+homepage:       https://github.com/lgarithm/hs-pcap#readme
+bug-reports:    https://github.com/lgarithm/hs-pcap/issues
+author:         lgarithm
+maintainer:     lgarithm@gmail.com
+copyright:      2020 lgarithm
+license:        BSD3
+build-type:     Simple
+
+source-repository head
+  type: git
+  location: https://github.com/lgarithm/hs-pcap
+
+library
+  exposed-modules:
+      App.Usage
+      Misc.Binary
+      Misc.Parse
+      Misc.ParseTest
+      Misc.Plain
+      Misc.Sure
+      Misc.Test
+      Misc.Utils
+      Misc.UtilsTest
+      Net.AllTest
+      Net.Arp
+      Net.Arp.Format
+      Net.Arp.Parse
+      Net.Arp.Pprint
+      Net.Bits
+      Net.Dhcp
+      Net.Dhcp.Format
+      Net.Dhcp.Parse
+      Net.Dhcp.Pprint
+      Net.Dns
+      Net.Dns.Format
+      Net.Dns.Parse
+      Net.Dns.Pprint
+      Net.Icmp
+      Net.Icmp.Format
+      Net.Icmp.Parse
+      Net.Icmp.Pprint
+      Net.Ip
+      Net.Ip.Bits
+      Net.Ip.BitsTest
+      Net.Ip.Format
+      Net.Ip.FormatTest
+      Net.Ip.Parse
+      Net.Ip.Pprint
+      Net.Link
+      Net.Link.Format
+      Net.Link.Parse
+      Net.Link.Pprint
+      Net.Pcap
+      Net.Pcap.Format
+      Net.Pcap.Parse
+      Net.Pcap.Pprint
+      Net.PcapNg
+      Net.PcapNg.Filters
+      Net.PcapNg.Format
+      Net.PcapNg.Parse
+      Net.PcapNg.Pprint
+      Net.Tcp
+      Net.Tcp.Format
+      Net.Tcp.Parse
+      Net.Tcp.Pprint
+      Net.TCPIP
+      Net.Udp
+      Net.Udp.Format
+      Net.Udp.Parse
+      Net.Udp.Pprint
+      Query
+  other-modules:
+      Paths_hs_pcap
+  hs-source-dirs:
+      src
+  build-depends:
+      HUnit
+    , base >=4.7 && <5
+    , base-compat
+    , bytestring
+    , parsec
+    , split
+    , template-haskell
+    , utf8-string
+  default-language: Haskell2010
+
+executable pcap-read
+  main-is: pcap-read.hs
+  other-modules:
+      Paths_hs_pcap
+  hs-source-dirs:
+      app
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      HUnit
+    , base >=4.7 && <5
+    , base-compat
+    , bytestring
+    , hs-pcap
+    , parsec
+    , split
+    , template-haskell
+    , utf8-string
+  default-language: Haskell2010
+
+test-suite hs-pcap-test
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      Paths_hs_pcap
+  hs-source-dirs:
+      test
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      HUnit
+    , base >=4.7 && <5
+    , base-compat
+    , bytestring
+    , hs-example
+    , parsec
+    , split
+    , template-haskell
+    , utf8-string
+  default-language: Haskell2010
